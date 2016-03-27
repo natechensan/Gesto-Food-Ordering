@@ -152,13 +152,6 @@
 		</div>
 	</div>
 	<script>
-		function selectMenu(){
-			var nameInput = document.querySelector("#nameText");
-			var priceInput = document.querySelector("#priceText");
-			nameInput.value = this.querySelector(".menu-name").innerHTML;
-			priceInput.value = this.querySelector(".menu-price").innerHTML;
-		}
-
 		var menuItems = document.querySelectorAll("div.menu");
 		for(var i = 0; i < menuItems.length; i++){
 			var name = menuItems[i].querySelector(".menu-name").innerHTML;
