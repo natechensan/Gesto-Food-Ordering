@@ -1,0 +1,5 @@
+Rearranged the UI a little bit.
+
+Supports double type prices. Initially tried to make Mongoose compatible with double type, but it's overkill.
+
+Click "Total" to calculate total price.

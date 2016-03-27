@@ -1,0 +1,14 @@
+{
+  "name"         : "gesto-food",
+  "version"      : "0.0.1",
+  "description"  : "Simple food ordering application.",
+  "main"         : "server.js",
+  "author"       : "Nate",
+  "dependencies" : {
+    "express"         : "~4.13.4",
+    "mongoose"        : "~3.8.23",
+    "morgan"          : "~1.1.1",
+    "body-parser"     : "~1.4.3",
+    "method-override" : "~2.1.1"
+  }
+}
