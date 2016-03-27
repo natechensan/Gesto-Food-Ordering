@@ -64,7 +64,7 @@ module.exports = function (app) {
                 total += Number(foods[i].price);
             }
             total *= 1.075;
-            var totalPrice = {total:"Total: $"+total.toFixed(2)};
+            var totalPrice = {total:"$"+total.toFixed(2)};
             res.json(totalPrice);
             return;
         });

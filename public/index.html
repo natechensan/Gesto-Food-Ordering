@@ -14,9 +14,71 @@
 	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
 	<style>
 		html 					{ overflow-y:scroll; }
-		body 					{ padding-top:50px; }
+		body 					{ 
+			padding-top:50px; 
+			background-image:url('images/background.jpg');
+			background-size: cover;
+		}
 		#food-list 				{ margin-bottom:30px; }
 		#food-form 	 			{ margin-bottom:50px; }
+
+		div.container{
+			background: #eee;
+			opacity: 0.95;
+		}
+
+		input[type="text"]:read-only{
+			background: #fff;
+		}
+
+		div.menu{
+			background-size: cover;
+			min-height: 150px;
+			opacity:0.8;
+			cursor: pointer;
+			position:relative;
+			padding: 0;
+		}
+
+		div.menu:hover{
+			opacity: 1;
+		}
+
+		div.row.menu-list{
+			margin-top:1em;
+		}
+
+		div.menu.steak{
+			background-image: url('images/steak.jpg');
+		}
+		div.menu.lobster{
+			background-image: url('images/lobster.jpg');
+		}
+		div.menu.salmon{
+			background-image: url('images/salmon.jpg');
+		}
+		div.menu.burger{
+			background-image: url('images/burger.jpg');
+		}
+		div.menu.beer{
+			background-image: url('images/beer.jpg');
+		}
+		div.menu.shochu{
+			background-image: url('images/shochu.jpg');
+		}
+
+		div.menu-text{
+			position:absolute;
+			bottom: 0;
+			text-align: center;
+			color: #fff;
+			font-size: 1.5em;
+			background: #333;
+			width: 100%;
+			opacity: 0.5;
+		}
+
+
 	</style>
 
 	<!-- SPELLS -->
@@ -31,17 +93,29 @@
 <body ng-controller="mainController">
 	<div class="container">
 
-		<!-- HEADER AND TODO COUNT -->
 		<div class="jumbotron text-center">
 			<h1>Welcome to Emeril's</h1>
 		</div>
 
-		<!-- TODO LIST -->
-		<div id="food-list" class="row">
-			<div class="col-lg-4 col-lg-offset-5">
 
-				<!-- LOOP OVER THE TODOS IN $scope.foods -->
+		<div id="food-list" class="row">
+			<div class="col-lg-8 col-lg-offset-1">
+				<div class="row menu-list">
+					<div class="col-lg-3 menu steak"><div class="menu-text"><span class="menu-name">Ribeye</span><span class="menu-price"> $19.95</span></div></div>
+					<div class="col-lg-3 col-lg-offset-1 menu lobster"><div class="menu-text"><span class="menu-name">Lobster</span><span class="menu-price"> $22.95</span></div></div>
+					<div class="col-lg-3 col-lg-offset-1 menu salmon"><div class="menu-text"><span class="menu-name">Salmon</span><span class="menu-price"> $16.95</span></div></div>
+				</div>
+				<div class="row menu-list">
+					<div class="col-lg-3 menu burger"><div class="menu-text"><span class="menu-name">Burger</span><span class="menu-price"> $14.95</span></div></div>
+					<div class="col-lg-3 col-lg-offset-1 menu beer"><div class="menu-text"><span class="menu-name">Beer</span><span class="menu-price"> $3.95</span></div></div>
+					<div class="col-lg-3 col-lg-offset-1 menu shochu"><div class="menu-text"><span class="menu-name">Shochu</span><span class="menu-price"> $9.95</span></div></div>
+				</div>
+			</div>
+			<div class="col-lg-2">
+				<h3>Your Order: {{ totalPrice.total }}</h3>
+
 				<div class="checkbox" ng-repeat="food in foods">
+
 					<label>
 						<input type="checkbox" ng-click="deleteFood(food._id)"> {{ food.name }} ${{food.price}}
 					</label>
@@ -61,13 +135,13 @@
 					<div class="form-group col-lg-4">
 
 						<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-						<input type="text" class="form-control input-lg text-center" placeholder="Food Name" ng-model="formData.text">
+						<input type="text" class="form-control input-lg text-center" id="nameText" placeholder="Food Name" ng-model="formData.text" readonly>
 						
 					</div>
 					<div class="form-group col-lg-4">
 
 						<!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-						<input type="text" class="form-control input-lg text-center" id="priceText" placeholder="Food Price" ng-model="formData.price">
+						<input type="text" class="form-control input-lg text-center" id="priceText" placeholder="Food Price" ng-model="formData.price" readonly>
 						
 					</div>
 
@@ -76,11 +150,21 @@
 				</form>
 			</div>
 		</div>
-
-		<div id="total-price" class="row">
-			<div class="col-sm-offset-5 display-1" style="font-size:2em">{{ totalPrice.total }}</div>
-		</div>
 	</div>
+	<script>
+		function selectMenu(){
+			var nameInput = document.querySelector("#nameText");
+			var priceInput = document.querySelector("#priceText");
+			nameInput.value = this.querySelector(".menu-name").innerHTML;
+			priceInput.value = this.querySelector(".menu-price").innerHTML;
+		}
 
+		var menuItems = document.querySelectorAll("div.menu");
+		for(var i = 0; i < menuItems.length; i++){
+			var name = menuItems[i].querySelector(".menu-name").innerHTML;
+			var price = menuItems[i].querySelector(".menu-price").innerHTML;
+			menuItems[i].setAttribute("ng-click", "changeForm('"+name+"','"+price+"')");
+		}
+	</script>
 </body>
 </html>

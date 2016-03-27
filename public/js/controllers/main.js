@@ -23,6 +23,7 @@ angular.module('foodController', [])
 			if ($scope.formData.text != undefined && $scope.formData.price != undefined) {
 				$scope.loading = true;
 
+				$scope.formData.price = $scope.formData.price.replace(" $", "");
 				// call the create function from our service (returns a promise object)
 				Foods.create($scope.formData)
 
@@ -52,5 +53,10 @@ angular.module('foodController', [])
 			Foods.getTotal().success(function(data){
 				$scope.totalPrice = data;
 			})
+		}
+
+		$scope.changeForm = function(name, price){
+			this.formData.text = name;
+			this.formData.price = price;
 		}
 	}]);
